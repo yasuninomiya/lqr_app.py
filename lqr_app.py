@@ -22,13 +22,13 @@ B = parse_matrix(B_input)
 Q = parse_matrix(Q_input)
 R = parse_matrix(R_input)
 
-if None not in (A, B, Q, R):
+if all(x is not None for x in (A, B, Q, R)):
     try:
         P = solve_continuous_are(A, B, Q, R)
         K = np.linalg.inv(R) @ B.T @ P
         st.success("Optimal Gain K:")
         st.write(K)
     except Exception as e:
-        st.error(f"Error in computation: {e}")
+        st.error(f"Computation failed: {e}")
 else:
-    st.warning("Please enter all matrices in correct format.")
+    st.warning("Please enter all matrices correctly.")
